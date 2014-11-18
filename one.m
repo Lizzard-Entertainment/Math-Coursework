@@ -21,14 +21,8 @@ s = 10;
 H = zeros(s);
 
 
-for c = 1:s2
-    
-    for r = 1:s
-        H(r) = sin(c);
-    end
-end
 
-plot(2s);
+plot([1 5], [0 4]);
 
 prompt = 'please enter initial speed (m/s) ';
 V0 = input(prompt);
