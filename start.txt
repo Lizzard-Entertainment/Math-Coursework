@@ -1,0 +1,31 @@
+%input('enter variable name: ',s);
+
+% http://uk.mathworks.com/help/matlab/ref/input.html
+% http://uk.mathworks.com/help/matlab/matlab_env/save-load-and-delete-workspace-variables.html
+% http://uk.mathworks.com/help/matlab/ref/if.html
+
+% http://uk.mathworks.com/help/matlab/ref/try.html
+
+prompt = 'please enter initial speed (m/s) ';
+V0 = input(prompt);
+
+if V0>0 
+
+
+prompt2 = 'please enter firing angle (degrees) ';
+%alpha = input(prompt);
+
+%if (alpha < 90) && (alpha > 0)
+    
+    
+%else
+ 
+%     prompt = 'ERROR - entered angle is invalid!'; 
+ %     break;
+%end
+    
+
+else
+   prompt = 'ERROR - entered speed is invalid!';
+end
+    
