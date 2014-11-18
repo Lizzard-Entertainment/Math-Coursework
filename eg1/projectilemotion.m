@@ -20,10 +20,10 @@ function [ xmax, maxh, xhigh ] = projectilemotion( x0, y0, v0, angle, g)
 %
 %  Ver: 1.0 by MD
 
-
+int tz[];
 anglerad = angle * (pi./180);               %% Converts angles to radians
 xmax = (v0.^2)./g * sin(2*anglerad);        %% Calculates max x distance
-xstep = xmax ./ 500;                        %% Calculates step, always 100 samples
+xstep = xmax ./ 100;                        %% Calculates step, always 100 samples
            
 x = x0:xstep:xmax;
 y = (x * tan(anglerad) - g/(2*(v0.^2)*(cos(anglerad)).^2)*x.^2) + y0;
@@ -44,6 +44,8 @@ for n = 1:length(x)
         
         brake;
     end
+    
+    tz[n]=y(n);
 
 end
 
