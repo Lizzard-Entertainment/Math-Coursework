@@ -1,0 +1,53 @@
+%{
+2014 3D Mathematics Coursework
+by Calum Brown, Euan McMenemin, Zoltán Tompa
+
+
+refferences;
+% http://uk.mathworks.com/help/matlab/ref/input.html
+% http://uk.mathworks.com/help/matlab/matlab_env/save-load-and-delete-workspace-variables.html
+% http://uk.mathworks.com/help/matlab/ref/if.html
+% http://uk.mathworks.com/help/matlab/ref/try.html
+
+%}
+
+
+% - INITIALISE  VARIABLES - %
+
+
+mass = 0;
+C = 0; %dragCoefficient
+p =0; %density of air
+Vo=0; %initial velocity
+Z =0; %fining angle
+g =0; %gravity (g)
+Wh = 5; % 
+
+
+
+plot([1 5], [0 4]);
+
+prompt = 'please enter initial speed (m/s) ';
+V0 = input(prompt);
+
+if V0>0 
+
+
+prompt2 = 'please enter firing angle (degrees) ';
+alpha = input(prompt2);
+
+if (alpha < 90) && (alpha > 0)
+    
+  disp('values are fine');
+    
+else
+ 
+     disp('ERROR - entered angle is invalid!'); 
+     break;
+end
+    
+
+else
+   disp('ERROR - entered speed is invalid!');
+end
+    
