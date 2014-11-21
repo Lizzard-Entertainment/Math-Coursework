@@ -8,7 +8,8 @@ refferences;
 % http://uk.mathworks.com/help/matlab/matlab_env/save-load-and-delete-workspace-variables.html
 % http://uk.mathworks.com/help/matlab/ref/if.html
 % http://uk.mathworks.com/help/matlab/ref/try.html
-
+% http://uk.mathworks.com/help/matlab/ref/while.html
+% 
 %}
 
 
@@ -17,41 +18,56 @@ refferences;
 % - preset variables (constants) -
 
     m = 0.5; %mass of ball (kg)
-    d = 1; %diameter of the ball (m)
+    d = 1.0; %diameter of the ball (m)
     
     C = 0; %dragCoefficient ()
     p = 0; %density of air ()
-    D = 0.07; % air resistance / Drag (multiplier)
+    D = 0.07; % air resistance / Drag (Kg/s)
 
     g = 9.80665; %gravity (m/s^2)
-    Wh = 5; %wall height (m)
-    Wdis = 20; %wall distance (m)
+    Wh = 5.0; %wall height (m)
+    Wdis = 20.0; %wall distance (m)
+    IFH = 1.0; %initial firing altitude (m)
+    x = 0.0; %initial X coordinate
+    
     CR = 0.58; %coefficient of restitution ()
 
     Tstep = 0.001; %stepping used for Eulers
+    T =0.0; %timer
 
 % - runtime input variables
 
-    Vo = 0; %initial velocity (m/s)
-    Z = 0; %fining angle (deg)
+    Vo = 0.0; %initial velocity (m/s)
+    Z = 0.0; %firing angle (deg)
 
 % - calculated variables
-    VxWH = 0; %velocity of ball on X axis after hitting the wall
-    VyWH = 0; %velocity of ball on Y axis after hitting the wall
-    
-    YWH = 0; %Y axis value when hitting the wall
+    Zrad = 0.0; %firing angle (rad)
 
-    tWH = 0; %time when ball hits wall
-    tGH = 0; %time when ball hits ground
-    tAWH = 0; %time between ball hits wall and then ground
+    VxWH = 0.0; %velocity of ball on X axis after hitting the wall
+    VyWH = 0.0; %velocity of ball on Y axis after hitting the wall
     
-    BdistGHI = 0; %ball's distance from initial firing position after hits the ground
-    BdistGHW = 0; %ball's distance from wall after hits the ground
+    YWH = 0.0; %Y axis value when hitting the wall
+
+    tWH = 0.0; %time when ball hits wall
+    tGH = 0.0; %time when ball hits ground
+    tAWH = 0.0; %time between ball hits wall and then ground
+    
+    BdistGHI = 0.0; %ball's distance from initial firing position after hits the ground
+    BdistGHW = 0.0; %ball's distance from wall after hits the ground
 
     
 % --- PROGRAM STARTS HERE ---
 
-% - input + validation -
+% -- initialisation --
+
+Zrad = degtorad(Z);
+y = IFH;
+
+% --
+
+
+
+% -- input + validation --
 
 prompt = 'please enter initial speed of the ball (m/s) ';
 Vo = input(prompt);
@@ -69,10 +85,22 @@ if (Z >= 90) || (Z <= 0)
      break;
 end
     
-
-
 disp ('all COOL');
 
+% --
 
-%plot([1 5], [0 4]);
+% Function - calculate wall hit
+
+        i=0; %loop iterator
+        while x < (Wdis-(d/2))
+            x = ((m/D)*Vo*cos(Zrad))*(1-exp((-1*D*T)/m));
+            T=T+Tstep;
+            i=i+1;
+        end
+        tWH = T;
+% FUNCTION END
+
+
+
+
     
