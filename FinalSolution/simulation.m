@@ -61,7 +61,6 @@ refferences;
 % -- initialisation --
 
 Zrad = degtorad(Z);
-y = IFH;
 
 % --
 
@@ -89,7 +88,7 @@ disp ('all COOL');
 
 % --
 
-% Function - calculate wall hit
+% Function - calculate wall hit time
 
         i=0; %loop iterator
         while x < (Wdis-(d/2))
@@ -100,7 +99,12 @@ disp ('all COOL');
         tWH = T;
 % FUNCTION END
 
+% Function - calculate wall hit height (Y)
 
+%% NOT WORKING !!!!!
+YWH = IFH + (((m/D)*(Vo*sin(Zrad))*(1-exp((-1*D*tWH)/m))-((m*g*tWH)/D)));
+
+% FUNCTION END
 
 
     
