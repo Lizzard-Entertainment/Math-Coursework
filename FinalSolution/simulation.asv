@@ -104,7 +104,9 @@ disp ('all COOL');
 
 % Function - calculate wall hit height (Y)
 
-YWH = (m/D)*(Vo*sin(Zrad)+(m*g/D))*(1-exp(-1*(D/m)*tWH))-(m*g*tWH/D);
+%% NOT WORKING !!!!!
+%YWH = IFH + (((m/D)*(Vo*sin(Zrad))*(1-exp((-1*D*tWH)/m))-((m*g*tWH)/D)));
+YWH = ((m/D)*(Vo*sin(Zrad))+(m*g/D))*(1-exp(-1*(D/m)*tWH))-(m*g*tWH/D);
 
 % FUNCTION END
 
