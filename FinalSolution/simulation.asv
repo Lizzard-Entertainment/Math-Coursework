@@ -86,29 +86,58 @@ end
     
 Zrad = degtorad(Z);
 
+
+
+
 disp ('all COOL');
 
-% --
 
-% Function - calculate wall hit time
 
-        i=0; %loop iterator
-        while x < (Wdis-(d/2))
-            T=(T+Tstep)*i;
-            x = ((m*Vo)/D)*cos(Zrad)*(1-exp((-1*D/m)*T));
+                   
+% -Function - calculate wall hit time
 
+        i=1; %loop iterator
+        while x < (Wdis-(d/2)) % 19.5 by deff.
             i=i+1;
+            T=(T+Tstep);
+            x = ((m*Vo)/D)*cos(Zrad)*(1-exp((-1*D/m)*T));
+            Xa(i,1)= x;
+            y = (m/D)*(Vo*sin(Zrad)+(m*g/D))*(1-exp(-1*(D/m)*T))-(m*g*T/D);
+            Ya(i,1) = y;
+
+            
+                   %- FUNCTION - CHECK IF WALL REACHED AT ALL on the X%
+                   if y<0
+                       disp(' ');
+                       out = ['The ball NEVER hit the wall! It landed at ', num2str(x), ' meters away from the firing spot,'];
+                       disp(out);
+                       out = [num2str(T) , ' seconds after firing.'];
+                       disp(out);
+                       break;
+                   end
+    
         end
         tWH = T;
-% FUNCTION END
+ %-FUNCTION END
 
-% Function - calculate wall hit height (Y)
 
-%% NOT WORKING !!!!!
-%YWH = IFH + (((m/D)*(Vo*sin(Zrad))*(1-exp((-1*D*tWH)/m))-((m*g*tWH)/D)));
-YWH = ((m/D)*(Vo*sin(Zrad))+(m*g/D))*(1-exp(-1*(D/m)*tWH))-(m*g*tWH/D);
+%- FUNCTION - CHECK IF WALL REACHED AT ALL on the Y %
+YWH = (m/D)*(Vo*sin(Zrad)+(m*g/D))*(1-exp(-1*(D/m)*tWH))-(m*g*tWH/D);
+if YWH > WH
+                       disp(' ');
+                       out = ['The ball NEVER hit the wall, it flew over it! '];
+                       disp(out);
+                       out = [' Its height when passing the wall was: ',num2str(y)];
+                       disp(out);
+                       break;
+end
 
-% FUNCTION END
+%- FUNCTION END
+
+plot (Xa,Ya);
+
+
+
 
 
     
