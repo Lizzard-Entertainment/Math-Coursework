@@ -126,9 +126,9 @@ Zrad = degtorad(Z);
         while x < (Wdis-(d/2)) % 19.5 by deff.
             i=i+1;
             T=(T+Tstep);
-            x = ((m*Vo)/D)*cos(Zrad)*(1-exp((-1*D/m)*T));
+            x = ((m*Vo)/D)*cosd(Z)*(1-exp((-1*D/m)*T));
             Xb(i,1)= x;
-            y = (m/D)*(Vo*sin(Zrad)+(m*g/D))*(1-exp(-1*(D/m)*T))-(m*g*T/D);
+            y = (m/D)*(Vo*sind(Z)+(m*g/D))*(1-exp(-1*(D/m)*T))-(m*g*T/D);
             Yb(i,1) = y;
 
             
@@ -149,7 +149,7 @@ Zrad = degtorad(Z);
 
 
 %- FUNCTION - CHECK IF WALL REACHED AT ALL on the Y %
-YWH = (m/D)*(Vo*sin(Zrad)+(m*g/D))*(1-exp(-1*(D/m)*tWH))-(m*g*tWH/D);
+YWH = (m/D)*(Vo*sind(Z)+(m*g/D))*(1-exp(-1*(D/m)*tWH))-(m*g*tWH/D);
 if YWH > Wh
    disp(' ');
    out = ['The ball NEVER hit the wall, it flew over it! '];
@@ -164,8 +164,8 @@ end
 
 %- FUNCTION - CALCULATE VELOCITIES AFTER WALL HIT
 
-VxWH = Vo*cos(Zrad)*exp((-1*D/m)*tWH); %velocity of ball on X axis after hitting the wall
-VyWH = Vo*sin(Zrad)+(m*g/D)*((exp(-1*(D/m)*tWH))-m/D*g); %velocity of ball on Y axis after hitting the wall
+VxWH = Vo*cosd(Z)*exp((-1*D/m)*tWH); %velocity of ball on X axis after hitting the wall
+VyWH = Vo*sind(Z)+(m*g/D)*((exp(-1*(D/m)*tWH))-m/D*g); %velocity of ball on Y axis after hitting the wall
 
 % FUNCTION TO CALCULATE THE ANGLE OF THE BOUNCE
 
@@ -178,9 +178,9 @@ ZWrad = atan((VyWH/VxWH));
         while (y > (d/2))  % when d/2 it's toughing the ground   || (i < 1000)
             
             tGH=(tGH+Tstep);
-            x = XWH -((m*Vo)/D)*cos(Zrad)*(1-exp((-1*D/m)*tGH));
+            x = XWH -((m*Vo)/D)*cosd(Z)*(1-exp((-1*D/m)*tGH));
             Xa(i,1)= x;
-            y = YWH +(m/D)*(Vo*sin(Zrad)+(m*g/D))*(1-exp(-1*(D/m)*tGH))-(m*g*tGH/D);
+            y = YWH +(m/D)*(Vo*sind(Z)+(m*g/D))*(1-exp(-1*(D/m)*tGH))-(m*g*tGH/D);
             Ya(i,1) = y;
             i=i+1;
                 
@@ -206,8 +206,8 @@ ZWrad = atan((VyWH/VxWH));
 
 
 % draw the calculations
-%plot (Xb,Yb,'Marker','o','MarkerFaceColor','black','MarkerEdgeColor','black','MarkerSize',4);
-plot (Xa,Ya,'Marker','o','MarkerFaceColor','red','MarkerEdgeColor','red','MarkerSize',4);
+plot (Xb,Yb,'Marker','o','MarkerFaceColor','black','MarkerEdgeColor','black','MarkerSize',4);
+%plot (Xa,Ya,'Marker','o','MarkerFaceColor','red','MarkerEdgeColor','red','MarkerSize',4);
 
 
 
