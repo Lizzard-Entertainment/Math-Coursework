@@ -22,6 +22,7 @@ refferences;
     - fill new array with after-bounce movement
     - plot new arrays
     - make sure all variables are filled
+    - set wall hight back to 5.0
 
 %}
 
@@ -55,7 +56,7 @@ clear all;
     D = 0.07; % air resistance / Drag (Kg/s)
 
     g = 9.80665; %gravity (m/s^2)
-    Wh = 5.0; %wall height (m)
+    Wh = 50.0; %wall height (m)
     Wdis = 20.0; %wall distance (m)
     IFH = 1.0; %initial firing altitude (m)
     x = 0.0; %initial X coordinate
@@ -71,16 +72,17 @@ clear all;
     Z = 0.0; %firing angle (deg)
 
 % - calculated variables
-    Zrad = 0.0; %firing angle (rad)
+    Zrad = 0.0; %firing angle (rad)     - DONE
 
     VxWH = 0.0; %velocity of ball on X axis after hitting the wall
     VyWH = 0.0; %velocity of ball on Y axis after hitting the wall
     
-    YWH = 0.0; %Y axis value when hitting the wall
+    YWH = 0.0; %Y axis value when hitting the wall - DONE
+    XWH = 0.0; %X axis value when hitting the wall - DONE
 
-    tWH = 0.0; %time when ball hits wall
-    tGH = 0.0; %time when ball hits ground
-    tAWH = 0.0; %time between ball hits wall and then ground
+    tWH = 0.0; %time when ball hits wall - DONE
+    tGH = 0.0; %time when ball hits ground (from 0 = when wall hit)
+    tWHaGH = 0.0; % total fly time
     
     BdistGHI = 0.0; %ball's distance from initial firing position after hits the ground
     BdistGHW = 0.0; %ball's distance from wall after hits the ground
@@ -115,16 +117,16 @@ Zrad = degtorad(Z);
 
 
                    
-% -Function - calculate wall hit time
+% -Function - motion before wall hit
 
         i=1; %loop iterator
         while x < (Wdis-(d/2)) % 19.5 by deff.
             i=i+1;
             T=(T+Tstep);
             x = ((m*Vo)/D)*cos(Zrad)*(1-exp((-1*D/m)*T));
-            Xa(i,1)= x;
+            Xb(i,1)= x;
             y = (m/D)*(Vo*sin(Zrad)+(m*g/D))*(1-exp(-1*(D/m)*T))-(m*g*T/D);
-            Ya(i,1) = y;
+            Yb(i,1) = y;
 
             
                    %- FUNCTION - CHECK IF WALL REACHED AT ALL on the X%
@@ -139,6 +141,7 @@ Zrad = degtorad(Z);
     
         end
         tWH = T;
+        XWH = x;
  %-FUNCTION END
 
 
@@ -157,8 +160,44 @@ end
 
 
 
+
+% -Function - motion after wall hit
+
+        i=1; %loop iterator
+        while (y > (d/2)) || (i < 1000) % when d/2 it's toughing the ground 
+            
+            tGH=(tGH+Tstep);
+            x = XWH -((m*Vo)/D)*cos(Zrad)*(1-exp((-1*D/m)*tGH));
+            Xa(i,1)= x;
+            y = YWH +(m/D)*(Vo*sin(Zrad)+(m*g/D))*(1-exp(-1*(D/m)*tGH))-(m*g*tGH/D);
+            Ya(i,1) = y;
+            i=i+1;
+                
+        end
+  
+ %-FUNCTION END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 % draw the calculations
-plot (Xa,Ya,'Marker','o','MarkerFaceColor','black','MarkerEdgeColor','black','MarkerSize',4);
+%plot (Xb,Yb,'Marker','o','MarkerFaceColor','black','MarkerEdgeColor','black','MarkerSize',4);
+plot (Xa,Ya,'Marker','o','MarkerFaceColor','red','MarkerEdgeColor','red','MarkerSize',4);
+
 
 
 
