@@ -74,11 +74,11 @@ clear all;
     Z = 0.0; %firing angle (deg)
 
 % - calculated variables
-    Zrad = 0.0; %firing angle (rad)     - DONE
-    ZWrad = 0.0; %angle of wall bounce
 
-    VxWH = 0.0; %velocity of ball on X axis after hitting the wall
-    VyWH = 0.0; %velocity of ball on Y axis after hitting the wall
+    ZW = 0.0; %angle of wall bounce
+
+    VxWH = 0.0; %velocity of ball on X axis after hitting the wall - DONE
+    VyWH = 0.0; %velocity of ball on Y axis after hitting the wall - DONE
     
     YWH = 0.0; %Y axis value when hitting the wall - DONE
     XWH = 0.0; %X axis value when hitting the wall - DONE
@@ -167,10 +167,12 @@ end
 VxWH = Vo*cosd(Z)*exp((-1*D/m)*tWH); %velocity of ball on X axis after hitting the wall
 VyWH = Vo*sind(Z)+(m*g/D)*((exp(-1*(D/m)*tWH))-m/D*g); %velocity of ball on Y axis after hitting the wall
 
+VW = sqrt((VxWH*VxWH)+(VyWH*VyWH));
+
 % FUNCTION TO CALCULATE THE ANGLE OF THE BOUNCE
 
 %  angle after bounce = tan^-1(Vwhy/Vwhx)
-ZWrad = atan((VyWH/VxWH));
+ZW = 360-atand((VyWH/VxWH));
 
 % -Function - motion after wall hit
 
@@ -178,9 +180,9 @@ ZWrad = atan((VyWH/VxWH));
         while (y > (d/2))  % when d/2 it's toughing the ground   || (i < 1000)
             
             tGH=(tGH+Tstep);
-            x = XWH -((m*Vo)/D)*cosd(Z)*(1-exp((-1*D/m)*tGH));
+            x = XWH -((m*VW)/D)*cosd(ZW)*(1-exp((-1*D/m)*tGH));
             Xa(i,1)= x;
-            y = YWH +(m/D)*(Vo*sind(Z)+(m*g/D))*(1-exp(-1*(D/m)*tGH))-(m*g*tGH/D);
+            y = YWH +(m/D)*(VW*sind(ZW)+(m*g/D))*(1-exp(-1*(D/m)*tGH))-(m*g*tGH/D);
             Ya(i,1) = y;
             i=i+1;
                 
@@ -206,8 +208,8 @@ ZWrad = atan((VyWH/VxWH));
 
 
 % draw the calculations
-plot (Xb,Yb,'Marker','o','MarkerFaceColor','black','MarkerEdgeColor','black','MarkerSize',4);
-%plot (Xa,Ya,'Marker','o','MarkerFaceColor','red','MarkerEdgeColor','red','MarkerSize',4);
+%plot (Xb,Yb,'Marker','o','MarkerFaceColor','black','MarkerEdgeColor','black','MarkerSize',4);
+plot (Xa,Ya,'Marker','o','MarkerFaceColor','red','MarkerEdgeColor','red','MarkerSize',4);
 
 
 
