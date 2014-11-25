@@ -9,8 +9,38 @@ refferences;
 % http://uk.mathworks.com/help/matlab/ref/if.html
 % http://uk.mathworks.com/help/matlab/ref/try.html
 % http://uk.mathworks.com/help/matlab/ref/while.html
+% http://uk.mathworks.com/help/matlab/ref/plot.html?searchHighlight=plot
 % 
 %}
+
+
+%{
+    NOTES / KNOWN BUGS / STILL TO BE IMPLEMENTED:
+    
+    - implement initial firing altitude
+    - implement formula for bounce
+    - fill new array with after-bounce movement
+    - plot new arrays
+    - make sure all variables are filled
+
+%}
+
+%{
+   FORMULAS USED IN CALCULATIONS:
+
+        x = ((m*Vo)/D)*cos(Zrad)*(1-exp((-1*D/m)*T));
+        y = (m/D)*(Vo*sin(Zrad)+(m*g/D))*(1-exp(-1*(D/m)*T))-(m*g*T/D);
+
+        Vx = Vo*cos(Zrad)*exp((-1*D/m)*T)
+        Vy = Vo*sin(Zrad)+(m*g/D)*(exp(-1*(D/m)*T))-m/D*g)
+
+%}
+
+% -- initialisation --
+
+clear all;
+
+% --
 
 
 % --- INITIALISE  VARIABLES --- %
@@ -41,14 +71,14 @@ refferences;
     Z = 0.0; %firing angle (deg)
 
 % - calculated variables
-    Zrad = 0.0; %firing angle (rad)
+    Zrad = 0.0; %firing angle (rad)     - DONE
 
     VxWH = 0.0; %velocity of ball on X axis after hitting the wall
     VyWH = 0.0; %velocity of ball on Y axis after hitting the wall
     
-    YWH = 0.0; %Y axis value when hitting the wall
+    YWH = 0.0; %Y axis value when hitting the wall - DONE
 
-    tWH = 0.0; %time when ball hits wall
+    tWH = 0.0; %time when ball hits wall - DONE
     tGH = 0.0; %time when ball hits ground
     tAWH = 0.0; %time between ball hits wall and then ground
     
@@ -58,11 +88,7 @@ refferences;
     
 % --- PROGRAM STARTS HERE ---
 
-% -- initialisation --
-
-
-
-% --
+    
 
 
 
@@ -85,11 +111,6 @@ if (Z >= 90) || (Z <= 0)
 end
     
 Zrad = degtorad(Z);
-
-
-
-
-disp ('all COOL');
 
 
 
@@ -123,18 +144,21 @@ disp ('all COOL');
 
 %- FUNCTION - CHECK IF WALL REACHED AT ALL on the Y %
 YWH = (m/D)*(Vo*sin(Zrad)+(m*g/D))*(1-exp(-1*(D/m)*tWH))-(m*g*tWH/D);
-if YWH > WH
-                       disp(' ');
-                       out = ['The ball NEVER hit the wall, it flew over it! '];
-                       disp(out);
-                       out = [' Its height when passing the wall was: ',num2str(y)];
-                       disp(out);
-                       break;
+if YWH > Wh
+   disp(' ');
+   out = ['The ball NEVER hit the wall, it flew over it! '];
+   disp(out);
+   out = [' Its height when passing the wall was: ',num2str(y)];
+   disp(out);
+   break;
 end
 
 %- FUNCTION END
 
-plot (Xa,Ya);
+
+
+% draw the calculations
+plot (Xa,Ya,'Marker','o','MarkerFaceColor','black','MarkerEdgeColor','black','MarkerSize',4);
 
 
 

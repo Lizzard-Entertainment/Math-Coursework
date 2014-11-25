@@ -9,9 +9,32 @@ refferences;
 % http://uk.mathworks.com/help/matlab/ref/if.html
 % http://uk.mathworks.com/help/matlab/ref/try.html
 % http://uk.mathworks.com/help/matlab/ref/while.html
+% http://uk.mathworks.com/help/matlab/ref/plot.html?searchHighlight=plot
 % 
 %}
 
+
+%{
+    NOTES / KNOWN BUGS / STILL TO BE IMPLEMENTED:
+    
+    - implement initial firing altitude
+    - implement formula for bounce
+    - fill new array with after-bounce movement
+    - plot new arrays
+    - make sure all variables are filled
+
+%}
+
+%{
+   FORMULAS USED IN CALCULATIONS:
+
+        x = ((m*Vo)/D)*cos(Zrad)*(1-exp((-1*D/m)*T));
+        y = (m/D)*(Vo*sin(Zrad)+(m*g/D))*(1-exp(-1*(D/m)*T))-(m*g*T/D);
+
+        Vx = Vo*cos(Zrad)*exp((-1*D/m)*T)
+        Vy = Vo*sin(Zrad)+(m*g/D)*(exp(-1*(D/m)*T))-m/D*g)
+
+%}
 
 % -- initialisation --
 
@@ -65,7 +88,7 @@ clear all;
     
 % --- PROGRAM STARTS HERE ---
 
-
+    
 
 
 
@@ -88,11 +111,6 @@ if (Z >= 90) || (Z <= 0)
 end
     
 Zrad = degtorad(Z);
-
-
-
-
-disp ('all COOL');
 
 
 
@@ -137,7 +155,10 @@ end
 
 %- FUNCTION END
 
-plot (Xa,Ya);
+
+
+% draw the calculations
+plot (Xa,Ya,'Marker','o','MarkerFaceColor','black','MarkerEdgeColor','black','MarkerSize',4);
 
 
 
