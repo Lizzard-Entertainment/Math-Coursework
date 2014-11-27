@@ -76,6 +76,7 @@ clear all;
 % - calculated variables
 
     ZW = 0.0; %angle of wall bounce
+    ZB = 0.0; %angle after wall bounce
 
     VxWH = 0.0; %velocity of ball on X axis after hitting the wall - DONE
     VyWH = 0.0; %velocity of ball on Y axis after hitting the wall - DONE
@@ -162,17 +163,22 @@ end
 %- FUNCTION END
 
 
+
+
 %- FUNCTION - CALCULATE VELOCITIES AFTER WALL HIT
 
 VxWH = Vo*cosd(Z)*exp((-1*D/m)*tWH); %velocity of ball on X axis after hitting the wall
-VyWH = Vo*sind(Z)+(m*g/D)*((exp(-1*(D/m)*tWH))-m/D*g); %velocity of ball on Y axis after hitting the wall
+VyWH = (Vo*sind(Z)+(m*g/D))*(exp(-1*(D/m)*tWH)-m/D*g); %velocity of ball on Y axis after hitting the wall
 
 VW = sqrt((VxWH*VxWH)+(VyWH*VyWH));
 
 % FUNCTION TO CALCULATE THE ANGLE OF THE BOUNCE
 
-%  angle after bounce = tan^-1(Vwhy/Vwhx)
-ZW = 360-atand((VyWH/VxWH));
+%  angle at bounce = tan^-1(Vwhy/Vwhx)
+%ZW = atand((VyWH/VxWH));
+
+ZW = acosd((VxWH/VW))*-1;
+ZB = ZW + (abs(ZW)*2+180);
 
 % -Function - motion after wall hit
 
@@ -201,19 +207,45 @@ ZW = 360-atand((VyWH/VxWH));
 
 
 
+% FUNCTION DRAW THE WALL
+ 
+j=1;
+isEven = false;
+for j = 1:(Wh*10)
+    
+    if (isEven)
+        Wallx(j,1)=(Wdis+0.1)-0.1;
+        isEven = false;
+    else
+       Wallx(j,1)=(Wdis+0.1)+0.1;
+       isEven = true;
+    end
+Wally(j,1)=j*0.1;
 
-
+end
 
 
 
 
 % draw the calculations
-%plot (Xb,Yb,'Marker','o','MarkerFaceColor','black','MarkerEdgeColor','black','MarkerSize',4);
-plot (Xa,Ya,'Marker','o','MarkerFaceColor','red','MarkerEdgeColor','red','MarkerSize',4);
+
+%{
+createfigure(Xb,Yb);
+createfigure(Xa,Ya);
+
+%h = plot (Xb,Yb,Wallx,Wally);
+%h = plot (Xb,Yb,'Marker','o','MarkerFaceColor','black','MarkerEdgeColor','black','MarkerSize',5);
+%plot (Xa,Ya,'Marker','o','MarkerFaceColor','red','MarkerEdgeColor','red','MarkerSize',4);
 
 
+[x,y] = meshgrid(-1.75:.2:3.25);
+z = x.*exp(-x.^2-y.^2);
+
+figure
+surf(x,y,z)
+xlim([-1.75,3.25])
+ylim([-1.75,3.25])
 
 
-
-
+%}
     
