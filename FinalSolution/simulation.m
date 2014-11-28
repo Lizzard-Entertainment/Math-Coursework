@@ -147,6 +147,10 @@ Zrad = degtorad(Z);
         tWH = T;
         XWH = x;
  %-FUNCTION END
+ 
+ 
+ h = plot (Xb,Yb,'Marker','o','MarkerFaceColor','black','MarkerEdgeColor','black','MarkerSize',5);
+
 
 
 %- FUNCTION - CHECK IF WALL REACHED AT ALL on the Y %
@@ -155,13 +159,14 @@ if YWH > Wh
    disp(' ');
    out = ['The ball NEVER hit the wall, it flew over it! '];
    disp(out);
-   out = [' Its height when passing the wall was: ',num2str(y)];
+   out = [' Its height when passing the wall was: ',num2str(y),' meters'];
    disp(out);
    break;
 end
 
 %- FUNCTION END
 
+ %{
 
 
 
@@ -175,9 +180,8 @@ VW = sqrt((VxWH*VxWH)+(VyWH*VyWH));
 % FUNCTION TO CALCULATE THE ANGLE OF THE BOUNCE
 
 %  angle at bounce = tan^-1(Vwhy/Vwhx)
-%ZW = atand((VyWH/VxWH));
 
-ZW = acosd((VxWH/VW))*-1;
+ZW = atand((VyWH/VxWH));
 ZB = ZW + (abs(ZW)*2+180);
 
 % -Function - motion after wall hit
@@ -186,9 +190,9 @@ ZB = ZW + (abs(ZW)*2+180);
         while (y > (d/2))  % when d/2 it's toughing the ground   || (i < 1000)
             
             tGH=(tGH+Tstep);
-            x = XWH -((m*VW)/D)*cosd(ZW)*(1-exp((-1*D/m)*tGH));
+            x = XWH -((m*VW)/D)*cosd(ZB)*(1-exp((-1*D/m)*tGH));
             Xa(i,1)= x;
-            y = YWH +(m/D)*(VW*sind(ZW)+(m*g/D))*(1-exp(-1*(D/m)*tGH))-(m*g*tGH/D);
+            y = YWH +(m/D)*(VW*sind(ZB)+(m*g/D))*(1-exp(-1*(D/m)*tGH))-(m*g*tGH/D);
             Ya(i,1) = y;
             i=i+1;
                 
@@ -229,9 +233,17 @@ end
 
 % draw the calculations
 
+%h = plot (Xb,Yb,'Marker','o','MarkerFaceColor','black','MarkerEdgeColor','black','MarkerSize',5);
+h = plot (Xa,Ya);
+%createfigure(Xb,Yb);
 %{
-createfigure(Xb,Yb);
 createfigure(Xa,Ya);
+
+    set(h,'LineWidth',2);
+    xlabel('distance (meters)'); ylabel('height (meters)');
+    hold on;
+    pause(0.001);
+
 
 %h = plot (Xb,Yb,Wallx,Wally);
 %h = plot (Xb,Yb,'Marker','o','MarkerFaceColor','black','MarkerEdgeColor','black','MarkerSize',5);
@@ -248,4 +260,5 @@ ylim([-1.75,3.25])
 
 
 %}
+ %}
     

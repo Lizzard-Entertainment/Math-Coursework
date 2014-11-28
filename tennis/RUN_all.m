@@ -1,8 +1,8 @@
 
 clearvars
 h =10;      % [m];
-v0=25;     % [m*sec^-1];
-theta=25;  % [deg];
+v0=5;     % [m*sec^-1];
+theta=60;  % [deg];
 ro=1.29;   % [kg*m^-3];
 g=9.81;    % [kg*m]
 d=.053;    % [m];
