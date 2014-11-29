@@ -151,7 +151,7 @@ Zrad = degtorad(Z);
  %-FUNCTION END
  
  
- h = plot (Xb,Yb,'Marker','o','MarkerFaceColor','black','MarkerEdgeColor','black','MarkerSize',5);
+
 
 
 
@@ -194,15 +194,15 @@ ZB = abs(ZW);
         i=1; %loop iterator
         Xa(1,1)= XWH;
         Ya(1,1) = YWH;
-        while (y > (d/2)|| (i < 1000) )  % when d/2 it's touching the ground   || (i < 1000)
+        while (y > (d/2)|| (i < 100) )  % when d/2 it's touching the ground   || (i < 1000)
             
             i=i+1;
             tGH=(tGH+Tstep);
-            x = XWH +((m*Vo)/D)*cosd(Z)*(1-exp((-1*D/m)*tGH));
+            x = XWH -((m*VxWH)/D)*cosd(Z)*(1-exp((-1*D/m)*tGH));
             Xa(i,1)= x;
   %EXPERIMANTAL !!!! NOT ACCTUAL FORMULA (Vo/5) !!!
             %y = (m/D)*(Vo*sind(Z)+(m*g/D))*(1-exp(-1*(D/m)*tGH))-(m*g*tGH/D);
-            y = ((m/D)+(Vo*sind(Z)+(m*g/D))*(1-exp(-1*(D/m)*tGH))-(m*g*tGH/D));
+            y=  YWH+(m/D)*((Vo*CR)*sind(Z)+(m*g/D))*(1-exp(-1*(D/m)*tGH))-(m*g*tGH/D);
             Ya(i,1) = y;
   
                 
