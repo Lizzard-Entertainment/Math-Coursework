@@ -11,6 +11,19 @@ refferences;
 % http://uk.mathworks.com/help/matlab/ref/while.html
 % http://uk.mathworks.com/help/matlab/ref/plot.html?searchHighlight=plot
 % 
+%}%{
+2014 3D Mathematics Coursework
+by Calum Brown, Euan McMenemin, Zoltán Tompa
+
+
+refferences;
+% http://uk.mathworks.com/help/matlab/ref/input.html
+% http://uk.mathworks.com/help/matlab/matlab_env/save-load-and-delete-workspace-variables.html
+% http://uk.mathworks.com/help/matlab/ref/if.html
+% http://uk.mathworks.com/help/matlab/ref/try.html
+% http://uk.mathworks.com/help/matlab/ref/while.html
+% http://uk.mathworks.com/help/matlab/ref/plot.html?searchHighlight=plot
+% 
 %}
 
 
@@ -204,7 +217,8 @@ ZB = abs(ZW);
             x = XWH +((m*Vo)/D)*cosd(Z)*(1-exp((-1*D/m)*tGH));
             Xa(i,1)= x;
             %EXPERIMANTAL !!!! NOT ACCTUAL FORMULA (Vo/5) !!!
-            y = YWH + (m/D)*(Vo*sind(Z)+(m*g/D))*(1-exp(-1*(D/m)*tGH))-(m*g*tGH/D);
+            %y = (m/D)*(Vo*sind(Z)+(m*g/D))*(1-exp(-1*(D/m)*tGH))-(m*g*tGH/D);
+            y = IFH+(d/2)+(m/D)*(Vo*sind(Z)+(m*g/D))*(1-exp(-1*(D/m)*tGH))-(m*g*tGH/D);
             Ya(i,1) = y;
   
                 
@@ -276,3 +290,4 @@ ylim([-1.75,3.25])
 %}
  %}
     
+
