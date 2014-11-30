@@ -181,7 +181,7 @@ end
 %% - FUNCTION - CALCULATE VELOCITIES WHEN WALL HIT
 
 VxWH = Vo*cosd(Z)*exp((-1*D/m)*tWH);                        %velocity of ball on X axis after hitting the wall
-VyWH = (Vo*sind(Z)+((m/D)*g))*(exp(-1*(D/m)*tWH)-(m/D)*g);  %velocity of ball on Y axis after hitting the wall
+VyWH = (Vo*sind(Z)+m/D*g)*(exp(-1*(D/m)*tWH))-((m/D)*g);  %velocity of ball on Y axis after hitting the wall
 
 VW = sqrt((VxWH*cosd(Z)*VxWH*cosd(Z))+((VyWH*sind(Z))*VyWH*sind(Z)));
 
