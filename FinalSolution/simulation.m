@@ -204,7 +204,7 @@ ZB = abs(ZW);
             
             i=i+1;
             tGH=(tGH+Tstep);
-            x = XWH -((m*VxWH)/D)*cosd(Z)*(1-exp((-1*D/m)*tGH));
+            x = XWH -((m*VxWH)/D)*cosd(ZB)*(1-exp((-1*D/m)*tGH));
             Xa(i,1)= x;
   %EXPERIMANTAL !!!! NOT ACCTUAL FORMULA (Vo/5) !!!
   
@@ -213,7 +213,7 @@ ZB = abs(ZW);
   
   
             %y = (m/D)*(Vo*sind(Z)+(m*g/D))*(1-exp(-1*(D/m)*tGH))-(m*g*tGH/D);
-            y=  YWH+(m/D)*((Vo*CR)*sind(Z)+(m*g/D))*(1-exp(-1*(D/m)*tGH))-(m*g*tGH/D);
+            y=  YWH+(m/D)*((VyWH*CR)*sind(ZB)+(m*g/D))*(1-exp(-1*(D/m)*tGH))-(m*g*tGH/D);
             Ya(i,1) = y;
   
                 
