@@ -239,6 +239,21 @@ if (TERMINATE==0)
 
     %function end
 
+    
+    %% FUNCTION OUTPUT CALCULATED VALUES
+    
+       out = ['------------------------------------------------------------'];
+       disp(out)
+       out = ['The ball hit the wall at the height of ',num2str(YWH),' meters, ',num2str(tWH),' seconds after firing.'];
+       disp(out);
+       out = ['It bounced back and landed ',num2str(tGH),' seconds later, ',num2str(BdistGHW),' meters away from the wall, and ', num2str(BdistGHI),' meters away from its initial firing position.'];
+       disp(out);
+       out = [''];
+       disp(out);
+       out = ['The ball spent ',num2str(tWHaGH),' seconds in the air.' ];
+       disp(out);
+    
+    
     %% FUNCTION DRAW THE WALL
 
     %{
