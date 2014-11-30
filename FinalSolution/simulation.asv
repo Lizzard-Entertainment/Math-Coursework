@@ -146,7 +146,7 @@ Zrad = degtorad(Z);
                    
         %% calculate velocities - DEBUG
         VxWHb(i,1) = Vo*cosd(Z)*exp((-1*D/m)*T);                        %velocity of ball on X axis after hitting the wall
-        VyWHb(i,1) = (Vo*sind(Z)+m/D*g)*(exp(-1*(D/m)*T))-((m/D)*g);
+        VyWHb(i,1) = (Vo*sind(Z))+((m/D)*g)); %*(exp(-1*(D/m)*T)-(m/D)*g);
   
               
                    
